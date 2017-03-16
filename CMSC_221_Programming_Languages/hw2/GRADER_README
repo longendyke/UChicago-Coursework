@@ -1,0 +1,40 @@
+Hey!
+
+Okay, I briefly want to explain the structure of small-step-2.sml (specifically, the 1000-line part of the case statement, dealing with our out-of-order If(x, y, z) evaluation). I'm doing this mainly because, as someone who has graded before, I understand how helpful it can be if someone can explain what the did to make their code so disgustingly ugly even if it works (and I'm like 90% sure it works...) and also because the code is truly horrifying and for that I'm actually really sorry. :/
+
+I tried to think of a quick way to make it easier but, due to both my lack of knowledge of sneak-arounds in sml and time constraints, I ended up just copy-pasting a shitton of code. It's organizational structure is as follows:
+
+--Other parts of *largest* case statement---
+| If(t_if) =>
+	let
+	...
+	in
+	...
+	(case t3
+		of ...
+		| term_type **Generic type of term in NB which t3 can be**
+		let ...
+		if isSome(eval_ret)
+			*We enter here if t3 is of some form which can be evaluated, ie t3 -> t3'*
+			*return evaluated t3 in wrapper of the type of term we encountered it (I called it term_type above)*
+		else
+			(case t2
+				of ...
+				| term_type_2 **Generic type of term in NB which t2 can be**
+				let ...
+				if isSome(eval_ret) **-> this time, this is the evaluated t2 value**
+				
+				*We enter here if t2 is of some form which can be evaluated, ie t2 -> t2'*
+				*return evaluated t2 in wrapper of the type of term we encountered it (term_type_2)*
+				else
+					**evaluate t1 either as some generic term, or as a boolean**
+			)
+	)
+...
+--Other Parts of Case Statement--
+
+All the parts of the case statement for every kind of term t3 can be (and also t2) follow this pattern!! The reason why the code became so gross was because of the different ways in which I handled each type of term, and I couldn't think of a way to generalize the process. Sorry, and I hope this brief explanation helped!
+
+-Will
+
+

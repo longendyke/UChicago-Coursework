@@ -1,0 +1,262 @@
+#include "gtest/gtest.h"
+#include "person.h"
+#include "community.h"
+
+// this class is used for testing public methods in class Community
+class test_community: public ::testing::Test {
+protected:
+	Community community;
+};
+
+// you should complete the following test cases
+// you should add more if you see fit
+
+// test constructor
+TEST_F(test_community, Community) {
+
+	Person judah = Person();
+	Person willem = Person();
+	Person ron = Person();
+	Person emma = Person();
+
+	willem.set_info("longendyke", "Willem", "Longendyke", 22 , "this is a test0");
+	judah.set_info("newman", "judah", "Newman", 20 , "this is a test1");
+	ron.set_info("yehoshua", "Ron", "Yehoshua", 23 , "this is a test2");
+	emma.set_info("smith", "Emma", "Smith", 21 , "this is a test3");
+
+	map<string, Person> people;
+
+	contact jc(judah.get_username(), judah);
+	people.insert(jc);
+
+	contact wc(willem.get_username(), willem);
+	people.insert(wc);
+
+	contact rc(ron.get_username(), ron);
+	people.insert(rc);
+
+	contact ec(emma.get_username(), emma);
+	people.insert(ec);
+
+	Community check0 = Community("Software", people);
+	EXPECT_STREQ(check0.get_name().c_str(), "Software");
+
+	Community check1 = Community("1Software", people);
+	EXPECT_STREQ(check1.get_name().c_str(), "");
+
+	Community check2 = Community("", people);
+	EXPECT_STREQ(check2.get_name().c_str(), "");
+
+	Community check3 = Community("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo", people);
+	EXPECT_STREQ(check3.get_name().c_str(), "");
+
+	Community check4 = Community("!!$$&&", people);
+	EXPECT_STREQ(check4.get_name().c_str(), "");
+
+}
+
+// test get_name
+TEST_F(test_community, get_name) {
+
+	// valid name change
+	community.set_name("Facebook");
+	EXPECT_STREQ(community.get_name().c_str(), "Facebook");
+
+	// empty name change (invalid)
+	community.set_name("");
+	EXPECT_STREQ(community.get_name().c_str(), "Facebook");
+
+	// valid name change
+	community.set_name("Twitter");
+
+	// number-leading name change (invalid)
+	community.set_name("1Facebook");
+	EXPECT_STREQ(community.get_name().c_str(), "Twitter");
+
+	// valid name change
+	community.set_name("GooglePlus");
+
+	// 129-character name change (invalid)
+	community.set_name("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+	EXPECT_STREQ(community.get_name().c_str(), "GooglePlus");
+}
+
+// test set_name
+TEST_F(test_community, set_name) {
+	//valid name change
+	EXPECT_TRUE(community.set_name("facebook"));
+
+	// number-leading name change (invalid)
+	EXPECT_FALSE(community.set_name("1bookface"));
+
+	// 129-character name change (invalid)
+	EXPECT_FALSE(community.set_name("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"));
+
+	// empty name change (invalid)
+	EXPECT_FALSE(community.set_name(""));
+
+	// non-alphanumeric name change (invalid)
+	EXPECT_FALSE(community.set_name("$^$&$"));
+}
+
+
+
+// test add_person
+TEST_F(test_community, add_person) {
+	// People for the next tests
+	Person judah = Person();
+	Person willem = Person();
+	Person ron = Person();
+	Person emma = Person();
+
+	willem.set_info("longendyke", "Willem", "Longendyke", 22 , "this is a test0");
+	judah.set_info("longendyke", "judah", "Newman", 20 , "this is a test1");
+	ron.set_info("yehoshua", "Ron", "Yehoshua", 23 , "this is a test2");
+	emma.set_info("smith", "Emma", "Smith", 21 , "this is a test3");
+
+	EXPECT_TRUE(community.add_person(willem));
+	EXPECT_TRUE(community.add_person(ron));
+	EXPECT_TRUE(community.add_person(emma));
+	EXPECT_FALSE(community.add_person(judah));
+}
+
+string print_unameList(list<string> uname){
+	std::list<string>::iterator it = uname.begin();
+
+	string ret; 
+	while(it != uname.end()){
+		ret.append("-- ");
+		ret.append(*it);
+		ret.append(" ");
+		it++;
+	}
+	ret.append("--");
+	return ret;
+}
+
+// test get_all_usernames
+//   there's no EXPERT functions for comparing non-built-in types, you need to
+//   do some parsing by yourself
+TEST_F(test_community, get_all_usernames) {
+
+	Person judah = Person();
+	Person willem = Person();
+	Person ron = Person();
+	Person emma = Person();
+
+	willem.set_info("longendyke", "Willem", "Longendyke", 22 , "this is a test0");
+	judah.set_info("longendyke", "judah", "Newman", 20 , "this is a test1");
+	ron.set_info("yehoshua", "Ron", "Yehoshua", 23 , "this is a test2");
+	emma.set_info("smith", "Emma", "Smith", 21 , "this is a test3");
+
+	community.add_person(willem);
+	community.add_person(ron);
+	community.add_person(emma);	
+
+	EXPECT_STREQ(print_unameList(community.get_all_usernames()).c_str(), "-- yehoshua -- smith -- longendyke --");
+
+	community.add_person(judah);
+
+	EXPECT_STREQ(print_unameList(community.get_all_usernames()).c_str(), "-- yehoshua -- smith -- longendyke --");	
+
+	judah.set_info("newman", "judah", "Newman", 20 , "this is a test1");
+	community.add_person(judah);
+
+	EXPECT_STREQ(print_unameList(community.get_all_usernames()).c_str(), "-- yehoshua -- smith -- newman -- longendyke --");		
+}
+
+string Plist_to_string(list<Person> persons){
+	std::list<Person>::iterator it = persons.begin();
+
+	string ret; 
+	while(it != persons.end()){
+		ret.append("-- ");
+		ret.append((*it).get_username());
+		ret.append(" ");
+		it++;
+	}
+	ret.append("--");
+	return ret;
+}
+
+// test find_member by first name and age range
+TEST_F(test_community, find_member) {
+
+	Person judah = Person();
+	Person willem = Person();
+	Person ron = Person();
+	Person emma = Person();
+
+	willem.set_info("longendyke", "Willem", "Longendyke", 22 , "this is a test0");
+	judah.set_info("newman", "judah", "Newman", 45 , "this is a test1");
+	ron.set_info("yehoshua", "Ron", "Yehoshua", 23 , "this is a test2");
+	emma.set_info("smith", "Emma", "Smith", 21 , "this is a test3");
+
+	community.add_person(willem);
+	community.add_person(ron);
+	community.add_person(emma);
+	community.add_person(judah);
+
+	EXPECT_STREQ(Plist_to_string(community.find_member("Willem")).c_str(), "-- longendyke --");
+
+	// Don't call me Billy.
+	EXPECT_STREQ(Plist_to_string(community.find_member("Billy")).c_str(), "--");
+
+	EXPECT_STREQ(Plist_to_string(community.find_member(21, 23)).c_str(), "-- yehoshua -- smith -- longendyke --");
+
+	EXPECT_STREQ(Plist_to_string(community.find_member(21, 45)).c_str(), "-- yehoshua -- smith -- newman -- longendyke --");	
+}
+
+// test get_member
+TEST_F(test_community, get_member) {
+
+	Person judah = Person();
+	Person willem = Person();
+	Person ron = Person();
+	Person emma = Person();
+
+	willem.set_info("longendyke", "Willem", "Longendyke", 22 , "this is a test0");
+	judah.set_info("newman", "judah", "Newman", 45 , "this is a test1");
+	ron.set_info("yehoshua", "Ron", "Yehoshua", 23 , "this is a test2");
+	emma.set_info("smith", "Emma", "Smith", 21 , "this is a test3");
+
+	community.add_person(willem);
+	community.add_person(ron);
+	community.add_person(emma);
+	community.add_person(judah);
+
+	EXPECT_STREQ(community.get_member("longendyke").get_firstname().c_str(), "Willem");
+
+	EXPECT_STREQ(community.get_member("longendykey").get_firstname().c_str(), "");
+}
+
+// test send_msg
+TEST_F(test_community, send_msg) {
+
+	Person judah = Person();
+	Person willem = Person();
+	Person ron = Person();
+	Person emma = Person();
+
+	willem.set_info("longendyke", "Willem", "Longendyke", 22 , "this is a test0");
+	judah.set_info("newman", "judah", "Newman", 45 , "this is a test1");
+	ron.set_info("yehoshua", "Ron", "Yehoshua", 23 , "this is a test2");
+	emma.set_info("smith", "Emma", "Smith", 21 , "this is a test3");
+
+	community.add_person(willem);
+	community.add_person(ron);
+	community.add_person(emma);
+	community.add_person(judah);
+
+	list<string> usernames;
+	usernames.push_front("longendyke");
+	usernames.push_front("smith");
+	usernames.push_front("newman");
+
+	EXPECT_TRUE(community.send_msg(usernames, "This is a valid test"));
+
+	usernames.push_front("yeehawshua");
+
+	EXPECT_FALSE(community.send_msg(usernames, "This is a valid test"));
+}
+

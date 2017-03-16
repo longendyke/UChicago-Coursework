@@ -1,0 +1,30 @@
+CMSC 22100 Spring 2016
+Homework 6
+
+Your assignment this week is to complete the three sketched-out Java
+projects in the three directories herein: java-complex, java-ilist,
+and java-PL. Makefiles and very lightweight testing frameworks are
+included; browse around each directory to get a feel for what you need
+to do. 
+
+You will need the Java compiler "javac" on your system to complete
+this assignment. As a permanent plan B (for this and other similar
+software issues in this and other quarters), remember you can ssh into
+a department machine and do your work there.
+
+java-complex offers a simple implementation of a class for the
+representation of complex numbers. If you've never written Java
+before, start here.
+
+java-ilist is a limited recapitulation of the ilist SML assignment. It
+illustrates recursive object design, and is an interesting
+counterpoint to recursive functional programming like we've been doing
+this quarter.
+
+java-PL is a Java implementation of some of the NBT language from the
+text. If you haven't done this sort of recursive object programming
+before, I recommend you start with java-ilist as a warm-up exercise.
+
+Please note this assignment is due on Monday May 23 at 11:59pm -- not
+the usual Wednesday deadline.
+

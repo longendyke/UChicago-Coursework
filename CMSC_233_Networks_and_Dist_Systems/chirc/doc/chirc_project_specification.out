@@ -1,0 +1,33 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Internet Relay Chat}{}% 2
+\BOOKMARK [1][-]{section.3}{The IRC Protocol}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Message format}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Replies}{section.3}% 5
+\BOOKMARK [1][-]{section.4}{Example communications}{}% 6
+\BOOKMARK [2][-]{subsection.4.1}{Logging into an IRC server}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.2}{Messaging between users}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.3}{Joining, talking in, and leaving a channel}{section.4}% 9
+\BOOKMARK [1][-]{section.5}{Getting the irc source code}{}% 10
+\BOOKMARK [1][-]{section.6}{Building and Testing irc }{}% 11
+\BOOKMARK [1][-]{section.7}{Grading}{}% 12
+\BOOKMARK [1][-]{section.8}{Tips}{}% 13
+\BOOKMARK [1][-]{section.9}{Project 1a \25350 points\273}{}% 14
+\BOOKMARK [1][-]{section.10}{Project 1b \253100 points\273}{}% 15
+\BOOKMARK [2][-]{subsection.10.1}{Connection Registration \25340 points\273}{section.10}% 16
+\BOOKMARK [2][-]{subsection.10.2}{PRIVMSG and NOTICE \25330 points\273}{section.10}% 17
+\BOOKMARK [2][-]{subsection.10.3}{PING and PONG \2532.5 points\273}{section.10}% 18
+\BOOKMARK [2][-]{subsection.10.4}{MOTD \2535 points\273}{section.10}% 19
+\BOOKMARK [2][-]{subsection.10.5}{LUSERS \25310 points\273}{section.10}% 20
+\BOOKMARK [2][-]{subsection.10.6}{WHOIS \25310 points\273}{section.10}% 21
+\BOOKMARK [2][-]{subsection.10.7}{ERR\137UNKNOWNCOMMAND \2532.5 points\273}{section.10}% 22
+\BOOKMARK [1][-]{section.11}{Project 1c \253100 points\273}{}% 23
+\BOOKMARK [2][-]{subsection.11.1}{JOIN \25315 points\273}{section.11}% 24
+\BOOKMARK [2][-]{subsection.11.2}{PRIVMSG and NOTICE to channels \25315 points\273}{section.11}% 25
+\BOOKMARK [2][-]{subsection.11.3}{PART \25310 points\273}{section.11}% 26
+\BOOKMARK [2][-]{subsection.11.4}{TOPIC \25310 points\273}{section.11}% 27
+\BOOKMARK [2][-]{subsection.11.5}{User and channel modes \25325 points\273}{section.11}% 28
+\BOOKMARK [2][-]{subsection.11.6}{AWAY \2535 points\273}{section.11}% 29
+\BOOKMARK [2][-]{subsection.11.7}{NAMES \2535 points\273}{section.11}% 30
+\BOOKMARK [2][-]{subsection.11.8}{LIST \2535 points\273}{section.11}% 31
+\BOOKMARK [2][-]{subsection.11.9}{WHO \2535 points\273}{section.11}% 32
+\BOOKMARK [2][-]{subsection.11.10}{Updating commands from Project 1b \2535 points\273}{section.11}% 33

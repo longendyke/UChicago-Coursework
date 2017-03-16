@@ -1,0 +1,40 @@
+CMSC 22100
+Homework 7
+University of Chicago, Spring 2016
+
+This work is due Monday, June 6, 2016 at 11:59pm.
+
+Graduating students need not complete this exercise, and won't be
+graded on it if they do. Having said that, the exercise is good
+preparation for the upcoming test, not to mention the highest ideal of
+education, which is now and shall ever be learning for the sake of
+learning itself. So, completion of the exercise is recommended for
+graduating students, and, for all others, mandatory.
+
+Your exercise is to complete the distinct labels check in parse.sml,
+as well as an implementation of the subtyping relation in
+ty.sml. Please note you should uncomment the call to chkDistinctLabels
+in parse.sml once you have written that function.
+
+The subtyping relation is described in full theoretical and practical
+detail in Chapters 15 and following in the text. Everything you need
+to know about subtyping all the types in ty.sml is presented in those
+chapters.
+
+Please note I've provided a simple front-end for scanning and parsing
+types from strings, so that writing of unit tests is considerably more
+pleasant. The (Scheme-like) concrete syntax of types in the given
+front-end implementation is as follows:
+
+ty ::= "Nat"
+     | "Bool"
+     | "(" "*" ty ty ")"
+     | "(" "->" ty ty ")"
+     | "{" label ":" ty "," ... "}"
+     | "(" "Ref" ty ")"
+     | "(" "List" ty ")"
+     | "(" "Array" ty ")"
+     | "Top"
+
+Note a label is one or more lowercase letters together, as in "a",
+"aa", "ab", "aaa", etc.

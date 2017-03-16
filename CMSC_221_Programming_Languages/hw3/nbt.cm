@@ -1,0 +1,31 @@
+Group
+  structure Read
+  structure Token
+  structure Scan
+  structure SurfaceNBT
+  structure Parse
+  structure CoreNBT
+  structure Elaborate
+  structure Type
+  structure Typecheck
+  structure Evaluate
+  structure Compile
+  structure Utils
+  structure Check
+  structure Tests
+is
+  $/basis.cm
+  read.sml
+  token.sml
+  scan.sml
+  surface-nbt.sml
+  parse.sml
+  core-nbt.sml
+  elaborate.sml	
+  type.sml
+  typecheck.sml
+  evaluate.sml
+  compile.sml
+  utils.sml
+  check.sml
+  tests.sml

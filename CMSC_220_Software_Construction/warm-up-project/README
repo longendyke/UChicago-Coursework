@@ -1,0 +1,5 @@
+Run "make" to compile googletest(gtest) with our source code.
+
+The "Makefile" gives an example of how you can use googletest. The idea is to include the gtest header files during compilation, and compile gtest_main.a with your own source code. 
+
+Note that this "Makefile" does not try to install gtest on your system. To install gtest systemwide, please refer to the README file of gtest directory. 

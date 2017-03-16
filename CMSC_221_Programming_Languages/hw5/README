@@ -1,0 +1,60 @@
+CMSC 22100: Homework 5
+due Wed May 11 2016 11:59pm
+
+PART 1: Implement instrumented lists with records. Please browse the
+files in that directory. The work is reasonably self-explanatory but
+please raise questions as needed.
+
+PART 2: Compile simple list comprehensions to SML. The scanner and
+parser are given; you need to write a typechecker and a cross
+compiler. As always, browse the given files carefully, to see what you
+have to work with and what's already been done for you.
+
+Please note: the concrete syntax of a list comprehension, as far as we
+are concerned, informally, is
+
+"[" LHS "|" RHS "]"
+
+where the LHS ("left hand side") is either one item or a tuple of
+items, where an item is either a variable name, a nat, or a bool, and
+where the RHS is a comma-separated list of "generators" and
+"predicates." Generators are of the form
+
+x "<-" list_or_range (see below for lists and ranges)
+
+and predicates are of the form
+
+"even x"
+
+Here a few examples of syntactically legal list comprehensions:
+
+"[ x | x <- [1..10] ]"
+
+"[ x | x <- [1,6,4,3,2] ]"
+
+"[ x | x <- [true, false, false] ]"
+
+"[ (x, x) | x <- [1..10] ]"
+
+"[ (x, 1) | x <- [1..10] ]"
+
+"[ (x, y) | x <- [1..10], y <- [1..10] ]"
+
+"[ (x, y) | x <- [1..10], y <- [1..10], even x ]"
+
+"[ (x, y) | x <- [1..10], y <- [1..10], even x, odd y ]"
+
+Variables are bound when they appear before the "<-" in a generator on
+the right hand side. A variable may not appear in a predicate unless
+they've already appeared. That is to say, the following is illegal:
+
+"[ x | even x, x <- [1..10] ]"
+
+"Descending ranges" like "[10..1]" are empty (but not illegal). The
+range "[1..1]" contains 1 item: 1.
+
+The cross compiler infrastructure will write the SML code you generate
+into a file called (by default) "listcomp-xc-result.sml". The file can
+contain whatever SML code you like; any number of helper functions is
+fine (and some helpers will be necessary). Please make sure the
+generated code names its final main result "result".

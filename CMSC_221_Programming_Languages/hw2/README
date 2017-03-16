@@ -1,0 +1,90 @@
+README: Homework 2, CMSC 22100, Spring 2016
+
+CONTENTS OF THIS DIRECTORY 
+
+This zip file contains 12 files, in addition to this README:
+
+Three signatures describing the NB language and evaluation relations on it:
+- nb-sig.sml
+- small-step-sig.sml
+- big-step-sig.sml
+
+Four implementations of those signatures:
+- nb.sml
+- small-step-1.sml
+- small-step-2.sml
+- big-step.sml
+
+Testing infrastructure:
+- check-sig.sml
+- check.sml
+- tests.sml
+
+A generic Utils module, currently empty, if you have use for it:
+- utils.sml
+
+And the SML equivalent of a Makefile, to manage compilation:
+- nb.cm
+
+To use SML's compilation manager (its "make"), type CM.make and a
+string naming the "Makefile", as follows:
+- CM.make "nb.cm";
+
+In the present case, CM.make "nb.cm" will compile all the source code
+in these sml files and also run whatever tests you have written in the
+Tests structure (tests.sml). When you run the tests, you will see
+feedback at the console either of this form:
+========> Tests: 2 tests passed!
+or in the form of raised exceptions such as the following:
+  Fail: Check.expect failure: foo
+
+YOUR ASSIGNMENT
+
+Your assignment is to complete this implementation of NB. Please begin
+by reading the signatures. All the functions you need to write are
+currently stubbed out with exception raising. If you grep for the
+string TODO among the source files, you will see exactly which
+functions these are:
+
+$ grep TODO *.sml
+big-step.sml:  fun eval _ = raise Fail "TODO: BigStep.eval"
+nb.sml:  fun eq _ = raise Fail "TODO: NB.eq"
+nb.sml:  fun tos _ = raise Fail "TODO: NB.tos"
+nb.sml:  fun isNumVal _ = raise Fail "TODO: NB.isNumVal"
+nb.sml:  fun isBoolVal _ = raise Fail "TODO: NB.isBoolVal"
+nb.sml:  fun isVal _ = raise Fail "TODO: NB.isVal"
+small-step-1.sml:  fun oneStep _ = raise Fail "TODO: SmallStep1.oneStep"
+small-step-1.sml:  fun steps _ = raise Fail "TODO: SmallStep1.steps"
+small-step-1.sml:  fun eval _ = raise Fail "TODO: SmallStep1.eval"
+small-step-2.sml:  fun oneStep _ = raise Fail "TODO: SmallStep2.oneStep"
+small-step-2.sml:  fun steps _ = raise Fail "TODO: SmallStep2.steps"
+small-step-2.sml:  fun eval _ = raise Fail "TODO: SmallStep2.eval"
+
+What these functions are supposed to do should be clear from the
+comments interspersed throughout the structures and signatures. Here
+is a summary:
+
+- In nb.sml, implement various basic operations on terms in NB.
+
+- In small-step-1.sml, implement the single-step evaluation relation
+  given in Figures 3-1 and 3-2 of the text.
+
+- In small-step-2.sml, implement a variation of the former such that
+  if expressions are evaluated from right to left.
+
+- In big-step.sml, implement the big-step evaluation relation given in
+  exercise 3.5.17 in the text.
+
+TESTING
+
+The testing infrastructure (check-sig.sml, check.sml, and tests.sml)
+is provided to assist you. You are strongly encouraged to fill in the
+Tests structure with useful tests, but you will not be evaluated on
+the number or quality of your tests. It's there only for your benefit.
+
+SUBMISSION
+
+Please submit all files in a directory hw2 in your repository by
+11:59pm, Wednesday 4/13. Please submit all of the files named in this
+README; you will not need any others.
+

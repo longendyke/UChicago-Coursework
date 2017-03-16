@@ -1,0 +1,22 @@
+
+Judah Newman and Willem Longendyke 
+CS22001 Warm-up Project written answers
+
+Please add your written answers to the question in the assignment specification
+to this file! *** ONLY ANSWERS IN THIS EXACT FILE WILL BE GRADED! ***
+
+1. 
+
+  a) A map object provides a really nice way of accessing (inserting, removing, looking up) data, as opposed to an unordered list or array which must be searched to return data. Using the map, with usernames as keys, and the fact that usernames must be unique in our social network, we can have a method of finding people without searching the full collection of People in the community.
+
+2. 
+
+  a) If inboxes weren't private then anyone could read anybody's messages! There would be absolutely no method of securely messaging people.
+
+  b) You could add a new field to the Person class--an identifier for their community! Upon receiving a message from another user, there would be a check to make certain that the user sending the message is in the same community as the person receiving the message (this would require us to pass along the community of the sending user as well).
+
+3.
+  
+  a) The most clever part of the specification/implementation in terms of design is how the community clas builds on top of the people class and how two classes interact. The people class builds most of the functionality for people and then the community class effectively extends that functionality to make it more more dynamic and extend to to a group of people. The community class essentially takes the people class's basic functionality and extends it so that it has a lot more functionality. 
+
+  b) The most awkward part is the process of intilazing a user/Person. The idea that you could have a Null person than set one of the valids specifically so that some of the fields are valid while some of the other fields are valid. This awkward because some of the person's fields are valid while some of the fields are left as NULL. 

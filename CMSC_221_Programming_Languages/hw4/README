@@ -1,0 +1,113 @@
+Homework 4
+CMSC 22100, Spring 2016
+
+This homework entails writing a compiler for a simply-typed lambda
+calculus enriched with booleans.
+
+CONCRETE SYNTAX 
+
+The concrete syntax of this language is as follows:
+
+var ::= "a" | "b" | ... | "aaa" | ... | "aB1_2" | ...
+
+(* a variable is a lowercase letter, followed by any number of
+ * letters, numbers and _ 
+ *)
+
+t ::= var 
+    | "(" "L/" var ":" ty "." t ")" (* "L/" means lambda *)
+    | "(" t t ")"                   (* function application *)
+    | "T"                           (* true *)
+    | "F"                           (* false *)
+    | "!"                           (* not *)
+    | "(" "If" t t t ")"            (* if *)
+
+ty ::= "B"                          (* boolean *)
+     | "( ty "->" ty ")"            (* function types *)
+
+ABSTRACT SYNTAX
+
+The abstract syntax of this language is given by the datatypes in TLC
+("the lambda calculus"). Note that the TLC module also provides
+functions for converting abstract syntax to strings, and also a test
+for values (i.e., non-stuck normal forms). 
+
+Note that any abstraction (function) is by definition a value and is
+not evaluated further. Notably, a function body is not evaluated until
+that function is applied.
+
+Please note also that ! (not) is built in to this language -- it is
+not elaborated into a lambda term. It is also a value. It would
+certainly be possible, as an alternative design, to treat ! as a
+derived form and to rewrite it to the corresponding abstraction in an
+elaboration phase. (This compiler has no elaboration.)
+
+YOUR ASSIGNMENT
+
+Once again, grepping the string TODO shows what has been left for you
+to do.
+
+bash-3.2$ grep TODO *
+eval.sml:  fun subst _ = raise Fail "TODO: Eval.subst"
+eval.sml:  fun eval _ = raise Fail "TODO: Eval.eval"
+fv.sml:  fun fv _ = raise Fail "TODO: FV.fv"
+fv.sml:  fun closedTerm _ = raise Fail "TODO: FV.closedTerm"
+fv.sml:  fun openTerm _ = raise Fail "TODO: FV.openTerm"
+parse.sml:  fun parse _ = raise Fail "TODO: Parse.parse"
+scan.sml:  fun scan _ = raise Fail "TODO: Scan.scan"
+typecheck.sml:  fun lookup (gamma : type_env, x : Var.var) = raise Fail "TODO: lookup"
+typecheck.sml:  fun extend (gamma : type_env, x : Var.var, ty : L.ty) = raise Fail "TODO: extend"
+typecheck.sml:  fun typeOf (gamma, t) = raise Fail "TODO: Typecheck.typeOf"
+var.sml:  fun isEmpty _ = raise Fail "TODO: Var.isEmpty"
+var.sml:  fun singleton _ = raise Fail "TODO: Var.singleton"
+var.sml:  fun member _ = raise Fail "TODO: Var.member"
+var.sml:  fun insert _ = raise Fail "TODO: Var.insert"
+var.sml:  fun remove _ = raise Fail "TODO: Var.remove"
+var.sml:  fun union _ = raise Fail "TODO: Var.union"
+var.sml:  fun asList _ = raise Fail "TODO: Var.asList"
+
+I suggest you start by looking at the Compile module. A careful
+reading of it shows what remains to be done:
+
+- In scan.sml, implement a token scanner.
+
+- In parse.sml, implement a recursive descent parser. The concrete
+  syntax of this language (which is Scheme-like) is chosen for the
+  relative ease with which it can be parsed.
+
+- In fv.sml, implement a function to compute the set of free variables
+  in a given term. This entails building a data structure for sets of
+  variables (named var_set in the Var module). The algorithm for
+  computing free variables, which is simple and unsurprising, appears
+  in the text in 5.3.2.
+
+- In typecheck.sml, implement a type checker. It should follow the
+  typing rules given in figure 9, as well a few extra rules for
+  constants and conditionals. Please note that, because of the
+  presence of variables in the language, the typing rules necessarily
+  include a typing environment (represented as a capital gamma in the
+  typeset rules).
+
+- In eval.sml, implement an expression evaluator. The trickiest part
+  of this is the evaluation of applications of lambda terms, which
+  involves substitution and, when needed, renaming bound variables in
+  abstractions. The text discusses the details of substitution at
+  length in 5.3. Use Fresh.var (given) when a fresh variable name is
+  needed during renaming.
+
+As before, tests.sml gives you a place to add tests (there are some
+commented-out tests left in as examples), and utils.sml is included in
+case you design some general-purpose utilities that you'd like to use
+throughout the implementation.
+
+Also, note that compilation is now designed to operate directly on
+strings of code (program texts) rather than filenames. This is a
+convenience for testing and development; we've seen compilation of
+files in a previous assignment, so this will suffice moving forward.
+
+A NOTE ON WORKING IN THE SML SHELL
+
+To make the SML shell show you nested expressions, set a nice big
+print depth like so, from within the shell:
+
+- Control.Print.printDepth := 9999;

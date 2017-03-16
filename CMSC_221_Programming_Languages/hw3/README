@@ -1,0 +1,115 @@
+README: Homework 3, CMSC 22100, Spring 2016
+
+CONTENTS OF THIS DIRECTORY 
+
+This zip file contains 15 files, in addition to this README:
+
+Terms and types in the NBT language:
+- surface-nbt.sml
+- core-nbt.sml
+- type.sml
+
+Compiler components:
+- read.sml
+- token.sml
+- scan.sml
+- parse.sml
+- elaborate.sml
+- typecheck.sml
+- evaluate.sml
+- compile.sml
+
+Testing infrastructure:
+- check.sml
+- tests.sml
+
+A generic Utils module, currently empty, if you have use for it:
+- utils.sml
+
+Compilation management:
+- nbt.cm
+
+THE NBT LANGUAGE
+
+The concrete syntax of the surface language of NBT (as opposed to the
+core language) is as follows:
+
+t ::= "t"                         (* true *)
+    | "f"                         (* false *)
+    | "if(" t "," t "," t ")"     (* conditional *)
+    | "unless(" t "," t "," t ")" (* inverted conditional *)
+    | "or(" t "," t ")"           (* disjunction *)
+    | "and(" t "," t ")"          (* conjunction *)
+    | "not(" t ")"                (* negation *)
+    | <digits>                    (* natural numbers like 0, 1, 888, etc. *)
+    | "+(" t ")"                  (* successor *)
+    | "-(" t ")"                  (* predecessor *)
+    | "?(" t ")"                  (* zero test *)
+
+Please note that + and - are not infix plus and minus, but rather
+prefix succ and pred.
+
+Here is the concrete syntax of some example programs in NBT:
+
+"t"
+"+(+(+(0)))"
+"if(and(t,f),22,33)"
+"unless(and(t,f),44,55)"
+"unless(and(not(?(2)),?(+(3))),not(t),not(not(t)))"
+
+This fully-delimited syntax (with mandatory parentheses in every
+compound syntactic term) enables a _recursive descent parser_ (which
+is the easiest kind of parser to write). The parser turns token lists
+into SurfaceNBT terms. The elaborator rewrites SurfaceNBT terms as
+CoreNBT terms. The core language of NBT is like NB in chapter 3, but
+it is supplemented with a Nand form.
+
+YOUR ASSIGNMENT
+
+Please first browse the files given to you. To cut down on the (not
+inconsiderable) number of files in this assignment, signatures appear
+in place directly at each structure declaration (rather than appearing
+in their own files). The lecture on Thursday, April 14, taken together
+with the signature specifications and comments, should be enough to
+get you started on this work. Please note that you need not complete
+the compiler components in any particular order; go ahead and write
+(and test) the easy bits first. If you are stalled on any particular
+part, you can postpone the development of tricky cases by stubbing
+them out with exceptions.
+
+The most difficult element of this assignment is probably the
+parser.
+
+TESTING
+
+(As before) the testing infrastructure (check.sml, and tests.sml) is
+provided to assist you. You are encouraged to fill in the Tests
+structure with useful tests, but you will not be evaluated on the
+number or quality of your tests. These are there only for your
+benefit.
+
+HELPFUL TIP
+
+You can abbreviate structure names like so:
+
+  structure C = CoreNBT
+
+(near where you need it). Having done so, you can refer to structure
+components (types and values) with, for example, C.term, C.isVal,
+etc. These abbreviations can have the effect of making your code
+notably shorter and easier to grasp.
+
+WHEN YOU ARE FINISHED
+
+...you will be able to run your compiler on nbt files from the sml
+shell like so:
+
+- Compile.compile "p0.nbt";
+
+where "p0.nbt" is the name of some nbt program.
+
+SUBMISSION
+
+Please submit all files in a directory hw3 in your repository by
+11:59pm, Wednesday 4/20. Please submit all of the files named in this
+README; you will not need any others.

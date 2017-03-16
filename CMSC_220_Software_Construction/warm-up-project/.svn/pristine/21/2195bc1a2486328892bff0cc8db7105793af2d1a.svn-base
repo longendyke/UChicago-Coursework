@@ -1,0 +1,211 @@
+#include "community.h"
+
+Community::Community()
+  : name(""), people(map<string,Person>()) {
+}
+
+Community::Community(string _name, map<string,Person> _people) 
+  : name(_name), people(_people) {
+
+    bool err_flag = false;
+
+    if(set_name(_name)){
+        err_flag = true;
+    }
+
+    if(!err_flag){
+
+        std::map<string, Person>::iterator it = _people.begin();
+
+        while(it != _people.end()){
+            add_person(it->second);
+            it++;
+        }
+    }
+}
+
+string Community::get_name() {
+	return name;
+}
+
+bool Community::set_name(string _name) {
+	//TODO
+	
+	// name cannot be the empty string
+	if(_name == "")
+		return false;
+	
+	// name cannot exceed 128 characters
+	if(_name.size() > 128)
+		return false;
+	
+	// name must consist only of alphanumeric characters
+	if(!str_isalpha(_name))
+		return false;
+	
+	// name must not start with a digit
+	if(isdigit(_name[0]))
+		return false;
+	
+	name = _name;
+    return true;
+}
+
+bool Community::add_person(Person _person) {
+    contact to_add(_person.get_username(), _person);
+    
+    Person uname_check = get_member(to_add.first);
+
+    if(uname_check.get_username() != ""){
+        return false;
+    } else {
+        people.insert(to_add);
+    }
+
+    return true;
+    
+}
+
+// return the person object for a given username
+Person Community::get_member(string username) {
+    if (people.find(username) != people.end()) {
+        return people[username];
+    }
+    else {
+        return Person();
+    }
+}
+    
+
+list<string> Community::get_all_usernames() {
+    list<string> usernames;
+    // TODO
+    // return all usernames of members as a list
+    
+    // initialize an iterator over all people in this community
+    std::map<string, Person>::iterator it = this->people.begin();
+    
+    while(it != this->people.end()){
+        usernames.push_front(it->first);
+        it++;
+    }
+    
+    return usernames;
+}
+
+void Community::print_all_usernames() {
+    // TODO
+	// print all usernames of members to the console
+
+    list<string> u_names = get_all_usernames();
+
+    std::list<string>::iterator it = u_names.begin();
+
+    cout << "Usernames for Community: " << name;
+
+    while(it != u_names.end()){
+        cout << *it << "\n";
+        it++;
+    }
+
+    cout << "===End Usernames===";
+
+    return;
+}
+
+list<Person> Community::find_member(string firstname) {
+    list<Person> ret;
+    //TODO
+    // find users with a certain first name
+
+    std::map<string, Person>::iterator it = this->people.begin();
+
+    while(it != this->people.end()){
+        Person check = it->second;
+
+        if(check.get_firstname() == firstname)
+            ret.push_front(check);
+
+        it++;
+    }
+
+    return ret;
+}
+
+list<Person> Community::find_member(int age_lb, int age_ub) {
+  list<Person> ret;
+  //TODO
+  // find users within certain ages [age_lb, age_ub], both lower bound and upper bound shall be inclusive
+
+  std::map<string, Person>::iterator it = this->people.begin();
+
+    while(it != this->people.end()){
+        Person check = it->second;
+
+        if(check.get_age() <= age_ub && check.get_age() >= age_lb)
+            ret.push_front(check);
+
+        it++;
+    }
+
+  return ret;
+}
+
+bool Community::username_check(string username) {
+
+    // name cannot be the empty string
+    if(username == "")
+        return false;
+    
+    // name cannot exceed 128 characters
+    if(username.size() > 64)
+        return false;
+    
+    // name must consist only of alphanumeric characters
+    if(!str_isalpha(username))
+        return false;
+    
+    // name must not start with a digit
+    string test = string(1, username[0]);
+    if(!str_isalnum(test))
+        return false;
+    
+    return true;    
+
+}
+
+bool Community::send_msg(list<string> usernames, string msg) {
+	//TODO
+	// send msg to a Person addressed by username
+	// make sure the username is validated
+
+    bool err_flag = false;
+
+    std::list<string>::iterator it = usernames.begin();
+
+    while(it != usernames.end()){
+
+        // Try to find the member in the community
+        Person curr = get_member(*it);
+
+        // Validate current username
+        if(curr.get_username() == ""){
+            err_flag = true;
+            it++;
+            continue;
+        }
+
+        // Send the message
+        curr.get_msg(msg);
+
+        it++;
+    }
+
+    
+    if(err_flag)
+	   return false;
+    else
+        return true;
+    
+}
+

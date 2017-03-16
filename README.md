@@ -8,3 +8,5 @@ Included in this repo are four classes from the UChicago CS Major:
 + Introduction to Databases
 
 More information on these courses can be found here: http://collegecatalog.uchicago.edu/thecollege/computerscience/
+
+In addition to these projects I've also worked on MIT's SimpleDB project for my Intro. to Databases class. If you'd like to view my work, please contact me or request access.
